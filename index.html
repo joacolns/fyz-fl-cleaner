@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Limpiar Recordings FL Studio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FYZ - Fl Cleaner</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h2>Limpiar carpeta de Recordings</h2>
-  <label for="year">Año:</label>
-  <input type="number" id="year" value="2024"><br><br>
+  <div id="particles-js"></div>
 
-  <label for="months">Eliminar archivos de los primeros N meses:</label>
-  <input type="number" id="months" value="6"><br><br>
+  <div class="card">
+    <h2>FYZ - Fl Cleaner</h2>
 
-  <button onclick="deleteFiles()">Eliminar</button>
+    <button onclick="selectFolder()">Seleccionar Carpeta</button>
+    <p id="folderPath"></p>
 
+    <label>Año:</label>
+    <input type="number" id="year" value="2024" min="2000" max="2100"/>
+
+    <label>Eliminar archivos de los primeros N meses:</label>
+    <input type="number" id="months" value="6" min="1" max="12"/>
+
+    <button onclick="preview()">Ver archivos a eliminar</button>
+
+    <ul id="fileList"></ul>
+
+    <button id="deleteBtn" onclick="deleteFiles()" disabled>Eliminar archivos</button>
+  </div>
+
+  <script src="particles.min.js"></script>
   <script>
-    const { ipcRenderer } = require('electron');
-
-    function deleteFiles() {
-      const year = parseInt(document.getElementById('year').value);
-      const months = parseInt(document.getElementById('months').value);
-
-      ipcRenderer.send('delete-recordings', { year, months });
-    }
+    particlesJS.load('particles-js', 'particles-config.json');
   </script>
+  <script src="renderer.js"></script>
 </body>
 </html>
